@@ -33,8 +33,10 @@ jobs:
       - name: Smoke test
         run: |
           export PATH="~/multiversx-sdk:${PATH}"
-      - name: Build test
+          mxpy --version
+      - name: Buid test
         run: |
+          export PATH="~/multiversx-sdk:${PATH}"
           mxpy contract build
       
   # contracts:
