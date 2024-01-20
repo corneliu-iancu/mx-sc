@@ -14,6 +14,12 @@ env:
   BRANCH_NAME: main
 
 jobs:
+  build:
+    uses: multiversx/mx-sc-actions/.github/workflows/reproducible-build.yml@v2.3.5
+    with:
+      image_tag: v6.0.0
+      attach_to_existing_release: true
+      package_whole_project_src: true
   install:
     runs-on: ubuntu-latest
 
@@ -38,6 +44,7 @@ jobs:
         run: |
           export PATH="~/multiversx-sdk:${PATH}"
           mxpy deps install rust
+          cd ping-pong
           mxpy contract build
       
   # contracts:
