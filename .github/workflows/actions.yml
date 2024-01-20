@@ -18,5 +18,9 @@ jobs:
       rust-toolchain: nightly-2023-12-11
       vmtools-version: v1.4.60
       install-libtinfo5: true
+
+    - name: Run the wasm tests
+    run:
+      python3 -m multiversx_sdk_cli.cli contract test
     secrets:
       token: ${{ secrets.GITHUB_TOKEN }}
