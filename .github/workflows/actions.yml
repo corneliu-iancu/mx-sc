@@ -11,34 +11,32 @@ permissions:
   pull-requests: write
 
 jobs:
-  contracts:
-    name: Contracts
+  install:
     runs-on: ubuntu-latest
+
     strategy:
       matrix:
         python-version: [3.11]
-    steps:
-      - name: Setup Environment
-        uses: multiversx/mx-sc-actions/.github/workflows/contracts.yml@v2
-        with:
-          rust-toolchain: nightly-2023-12-11
-          vmtools-version: v1.4.60
-          install-libtinfo5: true
 
+    steps:
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
-
       - name: Install
         run: |
           wget -O mxpy-up.py https://raw.githubusercontent.com/multiversx/mx-sdk-py-cli/$BRANCH_NAME/mxpy-up.py
           python3 mxpy-up.py --from-branch $BRANCH_NAME --not-interactive
-
       - name: Smoke test
         run: |
           export PATH="~/multiversx-sdk:${PATH}"
           mxpy --version
-
+  contracts:
+    name: Contracts
+    uses: multiversx/mx-sc-actions/.github/workflows/contracts.yml@v2
+    with:
+      rust-toolchain: nightly-2023-12-11
+      vmtools-version: v1.4.60
+      install-libtinfo5: true
     secrets:
       token: ${{ secrets.GITHUB_TOKEN }}
