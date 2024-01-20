@@ -44,6 +44,7 @@ jobs:
         run: |
           export PATH="~/multiversx-sdk:${PATH}"
           mxpy deps install rust
+          ls
           cd ping-pong
           mxpy contract build
       
