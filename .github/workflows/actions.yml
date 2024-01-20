@@ -37,6 +37,7 @@ jobs:
       - name: Buid test
         run: |
           export PATH="~/multiversx-sdk:${PATH}"
+          mxpy deps install rust
           mxpy contract build
       
   # contracts:
